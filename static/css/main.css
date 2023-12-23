@@ -68,7 +68,7 @@ a:focus {
   text-decoration: none;
 }
 img[src="assets/images/blank.gif"] {
-  background: url("../images/ajax.gif") no-repeat scroll center center #ffffff;
+  background: url() no-repeat scroll center center #ffffff;
 }
 
 .btn-upper {
@@ -3300,7 +3300,7 @@ background:none
 
 .del-info {
   text-align: center;
-  background: url(../images/del-van.png);
+  background: url();
 /* background-size: 90px; */
 /* background-repeat: no-repeat; */
 /* padding: 0px; */
