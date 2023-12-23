@@ -201,9 +201,9 @@ AUTH_USER_MODEL = 'app_1.User'
 
 LANGUAGE_CODE = 'en-us'
 
-#TIME_ZONE = 'UTC'
+TIME_ZONE = 'UTC'
 
-TIME_ZONE = 'Asia/Dhaka'
+# TIME_ZONE = 'Asia/Dhaka'
 
 USE_I18N = True
 
