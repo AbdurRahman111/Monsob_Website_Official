@@ -112,7 +112,7 @@ WSGI_APPLICATION = 'dashboard_1.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-#
+
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.sqlite3',
@@ -123,7 +123,7 @@ WSGI_APPLICATION = 'dashboard_1.wsgi.application'
 
 DATABASES = {
     'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2', #Database Engine
+            'ENGINE': 'django.db.backends.postgresql', #Database Engine
             'NAME': env('POSTGRES_DB'), #Database Name
             'USER': env("POSTGRES_USER"), #User Name
             'PASSWORD': env("POSTGRES_PASSWORD"), #Password
@@ -136,7 +136,7 @@ DATABASES = {
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'new5_boomboom_web',
+#         'NAME': '',
 #         'USER': 'root',
 #         'PASSWORD': '',
 #         'HOST':'localhost',
@@ -176,8 +176,6 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 
-
-
 PASSWORD_HASHERS = (
     'django.contrib.auth.hashers.PBKDF2PasswordHasher',
     'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
@@ -201,15 +199,15 @@ AUTH_USER_MODEL = 'app_1.User'
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+# TIME_ZONE = 'UTC'
 
-# TIME_ZONE = 'Asia/Dhaka'
+TIME_ZONE = 'Asia/Dhaka'
 
 USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
@@ -217,11 +215,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = os.path.join(BASE_DIR, '/static/')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Define the directory where static files will be collected
 
 STATICFILES_DIRS = [
     BASE_DIR / "static",
-
 ]
 
 # media file
