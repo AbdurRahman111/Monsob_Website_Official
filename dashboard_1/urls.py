@@ -20,9 +20,9 @@ from django.conf.urls.static import static
 
 from django.views.static import serve
 
-admin.site.site_header = "BoomBoom Group Pvt. Ltd."
-admin.site.site_title = "BoomBoom Group Admin Panel"
-admin.site.index_title = "BoomBoom Group Admin Panel"
+admin.site.site_header = "MonSob Group Pvt. Ltd."
+admin.site.site_title = "MonSob Group Admin Panel"
+admin.site.index_title = "MonSob Group Admin Panel"
 
 
 urlpatterns = [
