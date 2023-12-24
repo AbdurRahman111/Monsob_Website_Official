@@ -368,47 +368,54 @@ function openCity(evt, cityName) {
 // Price Range Filter
 var lowerSlider = document.querySelector('#lower');
 var  upperSlider = document.querySelector('#upper');
+//console.log('upperSlider, lowerSlider');
+//console.log(upperSlider, lowerSlider);
+if (upperSlider == null && lowerSlider == null){
+    //console.log('upperSlider and lowerSlider are null');
+}
+else{
+    document.querySelector('#two').value=upperSlider.value;
+    document.querySelector('#one').value=lowerSlider.value;
 
-document.querySelector('#two').value=upperSlider.value;
-document.querySelector('#one').value=lowerSlider.value;
+    var  lowerVal = parseInt(lowerSlider.value);
+    var upperVal = parseInt(upperSlider.value);
 
-var  lowerVal = parseInt(lowerSlider.value);
-var upperVal = parseInt(upperSlider.value);
+    upperSlider.oninput = function () {
+        lowerVal = parseInt(lowerSlider.value);
+        upperVal = parseInt(upperSlider.value);
 
-upperSlider.oninput = function () {
-    lowerVal = parseInt(lowerSlider.value);
-    upperVal = parseInt(upperSlider.value);
-
-    if (upperVal < lowerVal + 4) {
-        lowerSlider.value = upperVal - 4;
-        if (lowerVal == lowerSlider.min) {
-        upperSlider.value = 4;
+        if (upperVal < lowerVal + 4) {
+            lowerSlider.value = upperVal - 4;
+            if (lowerVal == lowerSlider.min) {
+            upperSlider.value = 4;
+            }
         }
-    }
-    document.querySelector('#two').value=this.value
-};
+        document.querySelector('#two').value=this.value
+    };
 
-lowerSlider.oninput = function () {
-    lowerVal = parseInt(lowerSlider.value);
-    upperVal = parseInt(upperSlider.value);
-    if (lowerVal > upperVal - 4) {
-        upperSlider.value = lowerVal + 4;
-        if (upperVal == upperSlider.max) {
-            lowerSlider.value = parseInt(upperSlider.max) - 4;
+    lowerSlider.oninput = function () {
+        lowerVal = parseInt(lowerSlider.value);
+        upperVal = parseInt(upperSlider.value);
+        if (lowerVal > upperVal - 4) {
+            upperSlider.value = lowerVal + 4;
+            if (upperVal == upperSlider.max) {
+                lowerSlider.value = parseInt(upperSlider.max) - 4;
+            }
         }
-    }
-    document.querySelector('#one').value=this.value
-};
+        document.querySelector('#one').value=this.value
+    };
+}
+
 
 (function () {
-  const second = 1000,
+        const second = 1000,
         minute = second * 60,
         hour = minute * 60,
         day = hour * 24;
 
-  let birthday = "Sep 30, 2021 00:00:00",
-      countDown = new Date(birthday).getTime(),
-      x = setInterval(function() {
+        let birthday = "Sep 30, 2021 00:00:00",
+        countDown = new Date(birthday).getTime(),
+        x = setInterval(function() {
 
         let now = new Date().getTime(),
             distance = countDown - now;
@@ -423,12 +430,18 @@ lowerSlider.oninput = function () {
           let headline = document.getElementById("headline"),
               countdown = document.getElementById("countdown"),
               content = document.getElementById("content");
-
-          headline.innerText = "It's my birthday!";
-          countdown.style.display = "none";
-          content.style.display = "block";
-
-          clearInterval(x);
+          //console.log('headline')
+          //console.log(headline)
+          if (headline == null){
+            //console.log('headline is null');
+            clearInterval(x); // Stops the countdown timer
+          }
+          else{
+              headline.innerText = "It's my birthday!";
+              countdown.style.display = "none";
+              content.style.display = "block";
+              clearInterval(x);
+          }
         }
         //seconds
       }, 0)
