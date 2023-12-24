@@ -52,7 +52,7 @@ def deshboard_login(request):
                 if deshboard_password == password_get_row:
                     request.session['deshboard_admin_username'] = deshboard_user_name
                     request.session['deshboard_admin_password'] = deshboard_password
-                    request.session['deshboard_user_img'] = get_row_username.image
+                    # request.session['deshboard_user_img'] = get_row_username.image
 
                     return redirect('deshboard_index')
                 else:
@@ -948,6 +948,7 @@ def dashboard_order_filter_campaign(request):
 
 
 def deshboard_index(request):
+    # print()
     staff_admin = request.session.get('deshboard_admin_username')
     staff_shop_manager = request.session.get('deshboard_shop_manager_username')
     staff_customer_support = request.session.get('deshboard_customer_support_username')
