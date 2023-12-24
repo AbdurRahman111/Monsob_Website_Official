@@ -15,7 +15,7 @@
   </div>
 
   <div class="search-section">
-    <h1 style="margin-bottom:15px;">{% if vendor_first_page %} BoomBoom Vendors {% elif search_result_none %} No Result Found {% elif search_vendor %} About {{count_stores_e_r_t}} Result Found  {% elif stores_e_r_t %} About {{cont_stores_e_r_t}} results Found {% elif no_result %} No Result Found {% else %} BoomBoom Vendors {% endif %}</h1>
+    <h1 style="margin-bottom:15px;">{% if vendor_first_page %} MonSob Vendors {% elif search_result_none %} No Result Found {% elif search_vendor %} About {{count_stores_e_r_t}} Result Found  {% elif stores_e_r_t %} About {{cont_stores_e_r_t}} results Found {% elif no_result %} No Result Found {% else %} BoomBoom Vendors {% endif %}</h1>
     <form action="{% url 'search_store_user_page' %}" method="POST">{% csrf_token %}
       <input class="vendor-search" type="text" placeholder="Search for vendors.." name="name_search_store_user_page" value="{{name_search_store_user_page}}">
       <button style="margin-left:-20px;" class="btn-primary btn" type="submit"><i class="fa fa-search"></i></button>
