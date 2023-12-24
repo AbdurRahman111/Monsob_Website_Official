@@ -63,7 +63,7 @@ def deshboard_login(request):
                 if deshboard_password == password_get_row:
                     request.session['deshboard_shop_manager_username'] = deshboard_user_name
                     request.session['deshboard_shop_manager_password'] = deshboard_password
-                    request.session['deshboard_user_img'] = get_row_username.image
+                    # request.session['deshboard_user_img'] = get_row_username.image
 
                     return redirect('deshboard_index')
                 else:
@@ -74,7 +74,7 @@ def deshboard_login(request):
                 if deshboard_password == password_get_row:
                     request.session['deshboard_customer_support_username'] = deshboard_user_name
                     request.session['deshboard_customer_support_password'] = deshboard_password
-                    request.session['deshboard_user_img'] = get_row_username.image
+                    # request.session['deshboard_user_img'] = get_row_username.image
 
                     return redirect('deshboard_index')
                 else:
@@ -85,7 +85,7 @@ def deshboard_login(request):
                 if deshboard_password == password_get_row:
                     request.session['deshboard_upload_team_username'] = deshboard_user_name
                     request.session['deshboard_upload_team_password'] = deshboard_password
-                    request.session['deshboard_user_img'] = get_row_username.image
+                    # request.session['deshboard_user_img'] = get_row_username.image
 
                     return redirect('deshboard_index')
                 else:
