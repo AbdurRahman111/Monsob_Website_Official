@@ -23,7 +23,8 @@
     </noscript>
     <!-- End Facebook Pixel Code -->
 
-<form method="POST" action="{% url 'order_save_with_all_info' %}" id="checkout_form">{% csrf_token %}
+<form method="POST" action="{% url 'order_save_with_all_info' %}" id="checkout_form">
+    {% csrf_token %}
     <input type="hidden" name="customer_deli_info_id" id="id_customer_deli_info_id">
     <input type="hidden" name="order_delivery_place" id="id_order_delivery_place">
     <input type="hidden" name="order_delivery_option" id="id_order_delivery_option">
@@ -2048,6 +2049,8 @@ function funcget_last_oder_ID(){
     $('#input_total_due_price').val(JSON.stringify(total_due_price2));
     $('#input_payment_type').val(JSON.stringify(payment_type2));
 
+    // Get the CSRF token from cookies
+    var csrftoken = document.cookie.match(/csrftoken=([^;]+)/)[1];
 
     var form = document.getElementById("checkout_form");
     form.submit();

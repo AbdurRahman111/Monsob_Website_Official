@@ -236,7 +236,7 @@ def save_all_campaign_orders_one_by_one(request):
 
 
 
-
+@csrf_exempt
 def order_save_with_all_info(request):
     customer_deli_info_id1 = request.POST.get('customer_deli_info_id')
     customer_deli_info_id = json.loads(customer_deli_info_id1)
