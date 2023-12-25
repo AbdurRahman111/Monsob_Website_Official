@@ -37,11 +37,9 @@ class Category(models.Model):
     def __str__(self):
         return str(self.id) + ' - ' + self.Category_Name
     
-        
-        
+
     def filter_the_subcat1_by_mainCat(self):
         subcat1s = Subcategory_1.objects.filter(Category=self)
-        
         return subcat1s
         
     def filter_product_by_cat(self):
@@ -50,8 +48,6 @@ class Category(models.Model):
         
     def product_qty_cat(self):
         return Products.objects.filter(Category=self).count()
-        
-        
     
     def subcat1_by_cat(self):
         return Subcategory_1.objects.filter(Category=self)

@@ -20,7 +20,7 @@ from app_1.models import User
 import random
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.hashers import make_password, check_password
-
+from django.db.models import Avg, Count
 
 
 def payment_success(request):
@@ -44,7 +44,6 @@ def handler500(request):
 
 #Home
 def home(request, template='boomboom_user/index.html', page_template='boomboom_user/cat_index.html'):
-    
     Featured_Products = Products.objects.filter(make_star=True)[:8]
     
     all_benners = home_benner.objects.all()
@@ -61,10 +60,8 @@ def home(request, template='boomboom_user/index.html', page_template='boomboom_u
     featured_brands = Brand.objects.filter(Featured_Brand=True)[:6]
     featured_vendor = vendor_registration_table.objects.filter(featured_vendor=True, vendor_activation=True)[:6]
     
-    
     fil_campign_tbl = campaign_table.objects.filter(finish_campaign=False)
     fil_campign_tbl_cnt = fil_campign_tbl.count()
-    
     
     get_campign_tbl = None
     allcampign_tbl = None
@@ -96,9 +93,6 @@ def home(request, template='boomboom_user/index.html', page_template='boomboom_u
     json_flash_sell = serializers.serialize("json", flash_sell)
     
     Top_Product = Products.objects.filter(Review_Quantity__isnull=False).order_by('-Review_Quantity')[:5]
-    print('Top_Product')
-    print(Top_Product)
-
     
     # home_cat_prod = []
     # for i in filter_all_cats:
@@ -738,76 +732,118 @@ class product_ListView(ListView):
 
 
 
+# def product_details(request, slug):
+#     get_product = Products.objects.get(slug=slug)
+#     filter_prod_by_cat = Products.objects.filter(Category=get_product.Category).exclude(slug=slug).order_by('Discount_Price')[:9]
+#
+#     filter_attri_conct_with_product = None
+#     if get_product.TYPE_OF_PRODUCTS =='Variable Product' or get_product.TYPE_OF_PRODUCTS =='Virtual Product':
+#         filter_attri_conct_with_product = attribute_connect_with_product.objects.filter(connect_with_product=get_product)
+#
+#
+#     get_review_total = customer_review.objects.filter(Product=get_product)
+#     get_review = get_review_total.count()
+#
+#     Total_sum_of_reviews_quentity = 0
+#     for i in get_review_total:
+#         Total_sum_of_reviews_quentity = Total_sum_of_reviews_quentity + i.Ratting_qty
+#
+#     if Total_sum_of_reviews_quentity == 0:
+#         avarage_Total_sum_of_reviews_quentity = 0
+#     else:
+#         avarage_Total_sum_of_reviews_quentity_1 = Total_sum_of_reviews_quentity / get_review
+#         avarage_Total_sum_of_reviews_quentity = format(avarage_Total_sum_of_reviews_quentity_1, ".1f")
+#
+#     last_three_review = customer_review.objects.filter(Product=get_product).order_by('-id')[:3]
+#     int_avarage_Total_sum_of_reviews_quentity = float(avarage_Total_sum_of_reviews_quentity)
+#
+#     zero = ""
+#     poin_five = ""
+#     one = ""
+#     one_point_five = ""
+#     two = ""
+#     tow_point_five = ""
+#     three = ""
+#     three_point_five = ""
+#     four = ""
+#     four_point_five = ""
+#     five = ""
+#
+#     if int_avarage_Total_sum_of_reviews_quentity == 0:
+#         zero = "1"
+#     elif int_avarage_Total_sum_of_reviews_quentity > 0 and int_avarage_Total_sum_of_reviews_quentity < 1:
+#         poin_five = "1"
+#     elif int_avarage_Total_sum_of_reviews_quentity ==1:
+#         one = "1"
+#     elif int_avarage_Total_sum_of_reviews_quentity > 1 and int_avarage_Total_sum_of_reviews_quentity < 2:
+#         one_point_five = "1"
+#     elif int_avarage_Total_sum_of_reviews_quentity == 2:
+#         two = "1"
+#     elif int_avarage_Total_sum_of_reviews_quentity > 2 and int_avarage_Total_sum_of_reviews_quentity <3:
+#         tow_point_five = "1"
+#     elif int_avarage_Total_sum_of_reviews_quentity == 3:
+#         three = "1"
+#     elif int_avarage_Total_sum_of_reviews_quentity > 3 and int_avarage_Total_sum_of_reviews_quentity <4:
+#         three_point_five = "1"
+#     elif int_avarage_Total_sum_of_reviews_quentity == 4:
+#         four = "1"
+#     elif int_avarage_Total_sum_of_reviews_quentity > 4 and int_avarage_Total_sum_of_reviews_quentity < 5:
+#         four_point_five = "1"
+#     elif int_avarage_Total_sum_of_reviews_quentity == 5:
+#         five = "1"
+#
+#     # print("int_avarage_Total_sum_of_reviews_quentity")
+#     # print(int_avarage_Total_sum_of_reviews_quentity)
+#
+#     context2 = {'get_product': get_product, 'get_review': get_review, 'last_three_review': last_three_review,
+#                 'avarage_Total_sum_of_reviews_quentity': avarage_Total_sum_of_reviews_quentity, 'zero':zero, 'poin_five':poin_five, 'one':one, 'one_point_five':one_point_five, 'two':two, 'tow_point_five':tow_point_five, 'three':three, 'three_point_five':three_point_five, 'four':four, 'four_point_five':four_point_five, 'five':five, 'filter_attri_conct_with_product':filter_attri_conct_with_product, 'filter_prod_by_cat':filter_prod_by_cat}
+#
+#     return render(request, 'boomboom_user/product_details_page.html', context2)
+
+
+
+
 def product_details(request, slug):
-    get_product = Products.objects.get(slug=slug)
-    
-    filter_prod_by_cat = Products.objects.filter(Category=get_product.Category).exclude(slug=slug).order_by('Discount_Price')[:9]
+    try:
+        get_product = Products.objects.select_related('Category').get(slug=slug)
+        filter_prod_by_cat = Products.objects.filter(Category=get_product.Category).exclude(slug=slug).order_by(
+            'Discount_Price')[:9]
 
-    filter_attri_conct_with_product = None
-    if get_product.TYPE_OF_PRODUCTS =='Variable Product' or get_product.TYPE_OF_PRODUCTS =='Virtual Product':
-        filter_attri_conct_with_product = attribute_connect_with_product.objects.filter(connect_with_product=get_product)
+        filter_attri_conct_with_product = None
+        if get_product.TYPE_OF_PRODUCTS in ['Variable Product', 'Virtual Product']:
+            filter_attri_conct_with_product = attribute_connect_with_product.objects.filter(
+                connect_with_product=get_product)
 
+        get_review_total = customer_review.objects.filter(Product=get_product)
+        review_aggregate = get_review_total.aggregate(avg_rating=Avg('Ratting_qty'), review_count=Count('Ratting_qty'))
 
-    get_review_total = customer_review.objects.filter(Product=get_product)
-    get_review = get_review_total.count()
+        avarage_Total_sum_of_reviews_quentity = review_aggregate.get('avg_rating', 0)
+        get_review = review_aggregate.get('review_count', 0)
 
-    Total_sum_of_reviews_quentity = 0
-    for i in get_review_total:
-        Total_sum_of_reviews_quentity = Total_sum_of_reviews_quentity + i.Ratting_qty
+        last_three_review = get_review_total.order_by('-id')[:3]
 
-    if Total_sum_of_reviews_quentity == 0:
-        avarage_Total_sum_of_reviews_quentity = 0
-    else:
-        avarage_Total_sum_of_reviews_quentity_1 = Total_sum_of_reviews_quentity / get_review
-        avarage_Total_sum_of_reviews_quentity = format(avarage_Total_sum_of_reviews_quentity_1, ".1f")
+        # Calculate ratings
+        int_average_rating = round(avarage_Total_sum_of_reviews_quentity,
+                                   1) if avarage_Total_sum_of_reviews_quentity is not None else 0
+        # rating_counts = int(int_average_rating * 2)
+        # ratings = {'{}'.format(i * 0.5): "1" if rating_counts >= i else "" for i in range(1, 11)}
+        context2 = {
+            'get_product': get_product,
+            'get_review': get_review,
+            'last_three_review': last_three_review,
+            'avarage_Total_sum_of_reviews_quentity': int_average_rating,
+            'filter_attri_conct_with_product': filter_attri_conct_with_product,
+            'filter_prod_by_cat': filter_prod_by_cat
+        }
+        return render(request, 'boomboom_user/product_details_page.html', context2)
 
-    last_three_review = customer_review.objects.filter(Product=get_product).order_by('-id')[:3]
-
-    int_avarage_Total_sum_of_reviews_quentity = float(avarage_Total_sum_of_reviews_quentity)
-
-    zero = ""
-    poin_five = ""
-    one = ""
-    one_point_five = ""
-    two = ""
-    tow_point_five = ""
-    three = ""
-    three_point_five = ""
-    four = ""
-    four_point_five = ""
-    five = ""
-
-    if int_avarage_Total_sum_of_reviews_quentity == 0:
-        zero = "1"
-    elif int_avarage_Total_sum_of_reviews_quentity > 0 and int_avarage_Total_sum_of_reviews_quentity < 1:
-        poin_five = "1"
-    elif int_avarage_Total_sum_of_reviews_quentity ==1:
-        one = "1"
-    elif int_avarage_Total_sum_of_reviews_quentity > 1 and int_avarage_Total_sum_of_reviews_quentity < 2:
-        one_point_five = "1"
-    elif int_avarage_Total_sum_of_reviews_quentity == 2:
-        two = "1"
-    elif int_avarage_Total_sum_of_reviews_quentity > 2 and int_avarage_Total_sum_of_reviews_quentity <3:
-        tow_point_five = "1"
-    elif int_avarage_Total_sum_of_reviews_quentity == 3:
-        three = "1"
-    elif int_avarage_Total_sum_of_reviews_quentity > 3 and int_avarage_Total_sum_of_reviews_quentity <4:
-        three_point_five = "1"
-    elif int_avarage_Total_sum_of_reviews_quentity == 4:
-        four = "1"
-    elif int_avarage_Total_sum_of_reviews_quentity > 4 and int_avarage_Total_sum_of_reviews_quentity < 5:
-        four_point_five = "1"
-    elif int_avarage_Total_sum_of_reviews_quentity == 5:
-        five = "1"
-
-    print("int_avarage_Total_sum_of_reviews_quentity")
-    print(int_avarage_Total_sum_of_reviews_quentity)
-
-
-    context2 = {'get_product': get_product, 'get_review': get_review, 'last_three_review': last_three_review,
-                'avarage_Total_sum_of_reviews_quentity': avarage_Total_sum_of_reviews_quentity, 'zero':zero, 'poin_five':poin_five, 'one':one, 'one_point_five':one_point_five, 'two':two, 'tow_point_five':tow_point_five, 'three':three, 'three_point_five':three_point_five, 'four':four, 'four_point_five':four_point_five, 'five':five, 'filter_attri_conct_with_product':filter_attri_conct_with_product, 'filter_prod_by_cat':filter_prod_by_cat}
-
-    return render(request, 'boomboom_user/product_details_page.html', context2)
+    except Products.DoesNotExist:
+        # Handle the case where the product doesn't exist
+        return HttpResponse("Product not found", status=404)
+    except Exception as e:
+        # Handle other exceptions gracefully
+        print(f"An error occurred: {e}")
+        return HttpResponse("Something went wrong", status=500)
 
  
    
@@ -927,11 +963,14 @@ def Order_placed_successfully(request):
         form_Up_Deposit_slip = Upload_Deposit_slip()
 
         get_last_order = Order_Table.objects.filter(Customer=customer).last()
-        if get_last_order.Thanked:
-            return redirect('customer-dashboard')
-        else:
-            get_last_order.Thanked = True
-            get_last_order.save()
+        try:
+            if get_last_order.Thanked:
+                return redirect('customer-dashboard')
+            else:
+                get_last_order.Thanked = True
+                get_last_order.save()
+        except:
+            return redirect('/')
 
         context={'filter_all_orders':filter_all_orders, 'form_Up_Deposit_slip':form_Up_Deposit_slip, 'filter_cus_Ordr_Table_3':filter_cus_Ordr_Table_3, 'get_last_order':get_last_order}
         return render(request,'boomboom_user/Order_placed_successfully.html', context)

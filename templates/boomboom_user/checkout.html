@@ -107,7 +107,8 @@
 
                                       <div class="form-group">
                                           <label class="info-title" for="customer_District">Discrict <span>*</span></label>
-                                          <select id="customer_District">
+                                          <select id="customer_District" class="form-control unicase-form-control text-input" required>
+                                              <option value="">Select District ...</option>
                                               <option value="Bagerhat">Bagerhat</option>
                                                 <option value="Bandarban">Bandarban</option>
                                                 <option value="Barguna">Barguna</option>
@@ -203,7 +204,7 @@
                                 <div id="collapseTwo" class="panel-collapse collapse in">
                                   <div class="panel-body">
                                   <div class="row">
-                                      <span style=" color: #008023; ">Login please! or we will create a new account using below mobile number. Username and Password will be the mobile number that you given below.</span>
+<!--                                      <span style=" color: #008023; ">Login please! or we will create a new account using below mobile number. Username and Password will be the mobile number that you given below.</span>-->
                                       <div id="Show_status_delivery_info"></div>
 
                                       <div class="form-group">
@@ -225,12 +226,70 @@
 
                                       <div class="form-group">
                                           <label class="info-title" for="customer_District">Discrict <span>*</span></label>
-                                          <select id="customer_District">
-                                              <option value="Dhaka" selected="selected">Dhaka</option>
-                                              <option value="Chittagong">Chittagong</option>
-                                              <option value="Sylhet">Sylhet</option>
-                                              <option value="Feni">Feni</option>
-                                              <option value="Gazipur">Gazipur</option>
+                                          <select id="customer_District" class="form-control unicase-form-control text-input" required>
+                                              <option value="">Select District ...</option>
+                                              <option value="Bagerhat">Bagerhat</option>
+                                                <option value="Bandarban">Bandarban</option>
+                                                <option value="Barguna">Barguna</option>
+                                                <option value="Barisal">Barisal</option>
+                                                <option value="Bhola">Bhola</option>
+                                                <option value="Bogra">Bogura (Bogra)</option>
+                                                <option value="Brahmanbaria">Brahmanbaria</option>
+                                                <option value="Chandpur">Chandpur</option>
+                                                <option value="Chapainawabganj">Chapainawabganj</option>
+                                                <option value="Chattogram">Chattogram (Chittagong)</option>
+                                                <option value="Chuadanga">Chuadanga</option>
+                                                <option value="Cox's Bazar">Cox's Bazar</option>
+                                                <option value="Cumilla">Cumilla (Comilla)</option>
+                                                <option value="Dhaka">Dhaka</option>
+                                                <option value="Dinajpur">Dinajpur</option>
+                                                <option value="Faridpur">Faridpur</option>
+                                                <option value="Feni">Feni</option>
+                                                <option value="Gaibandha">Gaibandha</option>
+                                                <option value="Gazipur">Gazipur</option>
+                                                <option value="Gopalganj">Gopalganj</option>
+                                                <option value="Habiganj">Habiganj</option>
+                                                <option value="Jamalpur">Jamalpur</option>
+                                                <option value="Jashore">Jashore (Jessore)</option>
+                                                <option value="Jhalokati">Jhalokati</option>
+                                                <option value="Jhenaidah">Jhenaidah</option>
+                                                <option value="Joypurhat">Joypurhat</option>
+                                                <option value="Khagrachhari">Khagrachhari</option>
+                                                <option value="Khulna">Khulna</option>
+                                                <option value="Kishoreganj">Kishoreganj</option>
+                                                <option value="Kurigram">Kurigram</option>
+                                                <option value="Kushtia">Kushtia</option>
+                                                <option value="Lakshmipur">Lakshmipur</option>
+                                                <option value="Lalmonirhat">Lalmonirhat</option>
+                                                <option value="Madaripur">Madaripur</option>
+                                                <option value="Magura">Magura</option>
+                                                <option value="Manikganj">Manikganj</option>
+                                                <option value="Moulvibazar">Moulvibazar</option>
+                                                <option value="Munshiganj">Munshiganj</option>
+                                                <option value="Mymensingh">Mymensingh</option>
+                                                <option value="Narail">Narail</option>
+                                                <option value="Narayanganj">Narayanganj</option>
+                                                <option value="Narsingdi">Narsingdi</option>
+                                                <option value="Natore">Natore</option>
+                                                <option value="Netrokona">Netrokona</option>
+                                                <option value="Nilphamari">Nilphamari</option>
+                                                <option value="Noakhali">Noakhali</option>
+                                                <option value="Pabna">Pabna</option>
+                                                <option value="Panchagarh">Panchagarh</option>
+                                                <option value="Patuakhali">Patuakhali</option>
+                                                <option value="Pirojpur">Pirojpur</option>
+                                                <option value="Rajbari">Rajbari</option>
+                                                <option value="Rajshahi">Rajshahi</option>
+                                                <option value="Rangamati">Rangamati</option>
+                                                <option value="Rangpur">Rangpur</option>
+                                                <option value="Satkhira">Satkhira</option>
+                                                <option value="Shariatpur">Shariatpur</option>
+                                                <option value="Sherpur">Sherpur</option>
+                                                <option value="Sirajganj">Sirajganj</option>
+                                                <option value="Sunamganj">Sunamganj</option>
+                                                <option value="Sylhet">Sylhet</option>
+                                                <option value="Tangail">Tangail</option>
+                                                <option value="Thakurgaon">Thakurgaon</option>
                                             </select>
                                       </div>
 
@@ -374,24 +433,23 @@
 
 
    <div class="col-xs-12 col-sm-12 col-md-3 right-sidebar">
-   <div class="checkout-progress-sidebar ">
-	<div class="panel-group">
-		<div class="panel panel-default">
-			<div class="panel-heading">
-		    	<h4 class="unicase-checkout-title">Your Checkout Progress</h4>
-		    </div>
-		    <div class="">
-				<ul class="nav nav-checkout-progress list-unstyled">
-					<li><a href="#">Billing Address</a></li>
-					<li><a href="#">Shipping Address</a></li>
-					<li><a href="#">Shipping Method</a></li>
-					<li><a href="#">Payment Method</a></li>
-				</ul>
-			</div>
-		</div>
-	</div>
-</div>
-
+       <div class="checkout-progress-sidebar ">
+        <div class="panel-group">
+    <!--		<div class="panel panel-default">-->
+    <!--&lt;!&ndash;			<div class="panel-heading">&ndash;&gt;-->
+    <!--&lt;!&ndash;		    	<h4 class="unicase-checkout-title">Your Checkout Progress</h4>&ndash;&gt;-->
+    <!--&lt;!&ndash;		    </div>&ndash;&gt;-->
+    <!--&lt;!&ndash;		    <div class="">&ndash;&gt;-->
+    <!--&lt;!&ndash;				<ul class="nav nav-checkout-progress list-unstyled">&ndash;&gt;-->
+    <!--&lt;!&ndash;					<li><a href="#">Billing Address</a></li>&ndash;&gt;-->
+    <!--&lt;!&ndash;					<li><a href="#">Shipping Address</a></li>&ndash;&gt;-->
+    <!--&lt;!&ndash;					<li><a href="#">Shipping Method</a></li>&ndash;&gt;-->
+    <!--&lt;!&ndash;					<li><a href="#">Payment Method</a></li>&ndash;&gt;-->
+    <!--&lt;!&ndash;				</ul>&ndash;&gt;-->
+    <!--&lt;!&ndash;			</div>&ndash;&gt;-->
+    <!--		</div>-->
+        </div>
+       </div>
    </div>
 
     </div>
