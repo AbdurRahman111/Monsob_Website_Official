@@ -559,11 +559,8 @@
                             <div class="quantity-container info-container">
 								<div class="row">
 
-<div id="loadingSpinner" style="display: none; margin-left: 57px;">Loading...</div>
-<div id="productMessage" style="display: none; color: green; font-weight: bold; margin-left: 57px;"><i class="fa fa-check-circle" aria-hidden="true"></i> Product Added.</div>
-
 									<div class="qty">
-										<span class="label">Qty :</span>
+                                        <span class="label"><b>Qty :</b></span>
 									</div>
 
 									<div class="qty-count">
@@ -577,28 +574,38 @@
 							              </div>
 							            </div>
 									</div>
-                                    {% if get_product.Stock_status == 'In stock' %}
 
+								</div><!-- /.row -->
+                                <div class="row">
+                                    <div id="loadingSpinner" style="display: none; margin-left: 57px;">Loading...</div>
+                                    <div id="productMessage" style="display: none; color: green; font-weight: bold; margin-left: 57px;"><i class="fa fa-check-circle" aria-hidden="true"></i> Product Added.</div>
+                                    {% if get_product.Stock_status == 'In stock' %}
+                                    <div class="add-btn">
+										<span id="add_item_btn_2">
+										    <div class="btn btn-primary" style="color:white; background-color:#ff2b2b;" onclick="func_buy_now()" ><i class="fa fa-shopping-bag inner-right-vs"></i> Buy Now</div>
+										</span>
+                                        <input type="hidden" value="{{get_product.slug}}" id="product_id_2">
+									</div>
 									<div class="add-btn">
 										<span id="add_item_btn">
-										    <div class="btn btn-primary" onclick="add_to_cart()" ><i class="fa fa-shopping-cart inner-right-vs"></i> ADD TO CART</div>
+										    <div class="btn btn-primary" onclick="add_to_cart()" id="add_to_cart_btn_id"><i class="fa fa-shopping-cart inner-right-vs"></i> Add to cart</div>
 										</span>
                                         <input type="hidden" value="{{get_product.slug}}" id="product_id">
 									</div>
+
+
 									{% else %}
 									<div class="add-btn">
 										<div class="btn btn-primary" style="background-color:red; color:white;"><i class="fa fa-shopping-cart inner-right-vs"></i> Out of Stock</div>
 									</div>
 									{% endif %}
-								</div><!-- /.row -->
+								</div>
+
+                                <div class="row">
+                                    <div class="add-btn" id="view_cart_button_id" ></div>
+								</div>
 							</div><!-- /.quantity-container -->
 
-
-                            <div class="quantity-container info-container">
-								<div class="row">
-                                    <div class="add-btn" id="view_cart_button_id"></div>
-								</div><!-- /.row -->
-							</div>
 							{% if get_product.Vendors %}
 							<hr>
 							<div class="row">
@@ -1094,36 +1101,28 @@
 
 {% if get_product.TYPE_OF_PRODUCTS != 'Simple Product' %}
 <script>
-        $('input[name="attribut111"]').first().prop('checked', true)
 
-        var check_prod_attr = $("input:radio[name=attribut111]:checked").val();
+$('input[name="attribut111"]').first().prop('checked', true)
 
-        var nameArr = check_prod_attr.split(',');
+var check_prod_attr = $("input:radio[name=attribut111]:checked").val();
 
+var nameArr = check_prod_attr.split(',');
 
-        if(nameArr[0] == 'None'){
-            document.getElementById('product_price').innerHTML = nameArr[1];
-            document.getElementById('price_mrp_attr').innerHTML = "";
-        }
-        else{
-            document.getElementById('product_price').innerHTML = nameArr[0];
-            document.getElementById('price_mrp_attr').innerHTML = '&#2547;'+nameArr[1];
-        }
+if(nameArr[0] == 'None'){
+    document.getElementById('product_price').innerHTML = nameArr[1];
+    document.getElementById('price_mrp_attr').innerHTML = "";
+}
+else{
+    document.getElementById('product_price').innerHTML = nameArr[0];
+    document.getElementById('price_mrp_attr').innerHTML = '&#2547;'+nameArr[1];
+}
 
-
-
-        var check_prod_attr_id = $('input[type=radio][name=attribut111]:checked').attr('id')
-        console.log(check_prod_attr_id)
-
-
+var check_prod_attr_id = $('input[type=radio][name=attribut111]:checked').attr('id')
+console.log(check_prod_attr_id)
 
 
 
 function change_price_attribute(dis_price, mrp_price, attr_img){
-    console.log('dis_price1212')
-    console.log(dis_price)
-    console.log(mrp_price)
-    console.log(attr_img)
 
     if(dis_price == 'None'){
         document.getElementById('product_price').innerHTML = mrp_price;
@@ -1222,137 +1221,138 @@ function decrease_number(){
 }
 
 
-
-
+function func_buy_now() {
+    functionality_add_to_cart()
+        .then((result) => {
+            // If resolved, proceed to checkout
+            console.log(result);
+            window.location.href = '/checkout/';
+        })
+        .catch((error) => {
+            // If rejected, handle the error
+            console.error(error.message);
+        });
+}
 
 //add_to_cart()
-function add_to_cart(){
+function add_to_cart() {
 
+    //document.getElementById('loadingSpinner').style.display = 'block';
+    document.getElementById('add_to_cart_btn_id').style.backgroundColor = '#2EFAEE';
+    document.getElementById('add_to_cart_btn_id').innerHTML = 'Adding...';
+    // Simulate an asynchronous action (e.g., AJAX request)
+    setTimeout(function() {
+        // Hide the loading spinner
+        //loadingSpinner.style.display = 'none';
 
+        // Show the product message
+        //var productMessage = document.getElementById('productMessage');
+        //productMessage.style.display = 'block';
+        document.getElementById('add_to_cart_btn_id').style.backgroundColor = '#08A211';
+        document.getElementById('add_to_cart_btn_id').style.color = '#fff';
+        document.getElementById('add_to_cart_btn_id').innerHTML = 'Added <i class="fa fa-check-circle" aria-hidden="true"></i>';
 
-//for added masssge start
-document.getElementById('add_item_btn').addEventListener('click', function() {
-        // Show the loading spinner
-        var loadingSpinner = document.getElementById('loadingSpinner');
-        loadingSpinner.style.display = 'block';
-
-        // Simulate an asynchronous action (e.g., AJAX request)
+        // Hide the product message after 2 seconds (adjust as needed)
         setTimeout(function() {
-            // Hide the loading spinner
-            loadingSpinner.style.display = 'none';
+            //productMessage.style.display = 'none';
+            document.getElementById('add_to_cart_btn_id').style.backgroundColor = '#fdd922';
+            document.getElementById('add_to_cart_btn_id').style.color = 'black';
+            document.getElementById('add_to_cart_btn_id').innerHTML = '<i class="fa fa-shopping-cart inner-right-vs"></i> Add to cart';
+            //document.getElementById('view_cart_button_id').innerHTML=`<a class="btn btn-primary" href="/cart_page/" style="background-color:#0f3ba8; color:#fff;"><i class="fa fa-shopping-bag inner-right-vs"></i> View Cart</a>`;
+            document.getElementById('view_cart_button_id').innerHTML= `<h4 style="color:green;"><i class="fa fa-check-circle" aria-hidden="true"></i> Product added to cart. Go to <a href="/cart_page/">Cart Page</a></h4>`;
 
-            // Show the product message
-            var productMessage = document.getElementById('productMessage');
-            productMessage.style.display = 'block';
+        }, 500);
+    }, 1000);  // Simulating a delay of 2 seconds (adjust as needed)
 
-            // Hide the product message after 2 seconds (adjust as needed)
-            setTimeout(function() {
-                productMessage.style.display = 'none';
-            }, 500);
-        }, 1000);  // Simulating a delay of 2 seconds (adjust as needed)
+
+    functionality_add_to_cart()
+        .then((result) => {
+            // If resolved, proceed to checkout
+            console.log(result);
+
+        })
+        .catch((error) => {
+            // If rejected, handle the error
+            console.error(error.message);
+        });
+}
+
+
+function functionality_add_to_cart(){
+    return new Promise((resolve, reject) => {
+
+            // add to cart pixel event start
+            !function(f,b,e,v,n,t,s){
+                // Replace 'YOUR_PIXEL_ID' with your actual Pixel ID
+                if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+                n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+                if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+                n.queue=[];t=b.createElement(e);t.async=!0;
+                t.src=v;s=b.getElementsByTagName(e)[0];
+                s.parentNode.insertBefore(t,s)
+            }(window, document,'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+            fbq('init', '3162767697362558');
+            fbq('track', 'AddToCart');
+            // add to cart pixel event end
+
+            console.log('clicked add to cart');
+            var product_id = document.getElementById("product_id").value;
+
+            var checked_prod_attr = $("input:radio[name=attribut111]:checked").val();
+            //console.log(checked_prod_attr)
+
+            if(checked_prod_attr == undefined){
+                //console.log('no_atrr')
+                atrr = 'no-attr-'
+                atrr_full_text = undefined
+                atrr2 = 0
+            }
+            else{
+                //console.log('atrr')
+                var nameArr = checked_prod_attr.split(',');
+                atrr2 = nameArr[2]
+                atrr = `attr-id-(${atrr2})`
+                atrr_full_text = nameArr[3]
+            }
+
+            product_id_with_atrr = atrr+product_id
+            if(product_cart == null){
+                product_cart={}
+            }
+
+            if(product_cart[product_id_with_atrr] != undefined){
+                console.log('old')
+                //document.getElementById('add_item_btn').innerHTML = `<div class="btn btn-primary"><i class="fa fa-shopping-cart inner-right-vs"></i> Adding</div>`;
+                var qty = document.getElementById("show_number").value;
+                product_cart[product_id_with_atrr][0] = product_cart[product_id_with_atrr][0] + parseInt(qty);
+                document.getElementById("show_number").value = '1'
+                updateCart(product_cart);
+            }
+            else{
+                var qty = document.getElementById("show_number").value;
+                name = document.getElementById("product_name").innerHTML;
+                price = document.getElementById("product_price").innerHTML;
+                var_vendor =document.getElementById("reg_vendor_product").value;
+                var_campaign = 'Reguler Product'
+                varcam_free_delivery = "False"
+                product_cart[product_id_with_atrr] = [parseInt(qty), name, parseInt(price), picture_product, product_id, var_campaign, var_vendor, varcam_free_delivery, product_id_with_atrr, atrr2, atrr_full_text];
+                updateCart(product_cart,product_id);
+                document.getElementById("show_number").value = '1'
+            }
+            //$('#added_to_cart').modal('show');
+
+            cart_product_qty = 0
+            for (var item in product_cart){
+                cart_product_qty = cart_product_qty + 1;
+            }
+
+            if (cart_product_qty != 0) {
+                resolve("Item added to cart successfully");
+            } else {
+                reject(new Error("Failed to add item to cart"));
+            }
     });
-    //for added masssge end
-
-
-
-    // add to cart pixel event start
-    !function(f,b,e,v,n,t,s){
-        // Replace 'YOUR_PIXEL_ID' with your actual Pixel ID
-        if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-        n.queue=[];t=b.createElement(e);t.async=!0;
-        t.src=v;s=b.getElementsByTagName(e)[0];
-        s.parentNode.insertBefore(t,s)
-    }(window, document,'script',
-    'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', '3162767697362558');
-    fbq('track', 'AddToCart');
-    // add to cart pixel event end
-
-
-    console.log('clicked add to cart');
-    var product_id = document.getElementById("product_id").value;
-
-    var checked_prod_attr = $("input:radio[name=attribut111]:checked").val();
-    console.log(checked_prod_attr)
-
-
-    if(checked_prod_attr == undefined){
-        console.log('no_atrr')
-        atrr = 'no-attr-'
-        atrr_full_text = undefined
-        atrr2 = 0
-    }
-    else{
-        console.log('atrr')
-        console.log(checked_prod_attr)
-        var nameArr = checked_prod_attr.split(',');
-        console.log(nameArr[2])
-        atrr2 = nameArr[2]
-        console.log('atrr2')
-        console.log(atrr2)
-
-        atrr = `attr-id-(${atrr2})`
-        console.log(atrr)
-
-        atrr_full_text = nameArr[3]
-        console.log(atrr_full_text)
-    }
-
-    product_id_with_atrr = atrr+product_id
-    console.log(product_id_with_atrr)
-
-    console.log(product_cart)
-
-    if(product_cart == null){
-        product_cart={}
-    }
-
-    if(product_cart[product_id_with_atrr] != undefined){
-        console.log('old')
-        //document.getElementById('add_item_btn').innerHTML = `<div class="btn btn-primary"><i class="fa fa-shopping-cart inner-right-vs"></i> Adding</div>`;
-        var qty = document.getElementById("show_number").value;
-        console.log(qty)
-        product_cart[product_id_with_atrr][0] = product_cart[product_id_with_atrr][0] + parseInt(qty);
-        document.getElementById("show_number").value = '1'
-        updateCart(product_cart);
-    }
-
-    else{
-
-        var qty = document.getElementById("show_number").value;
-        console.log(qty);
-
-        name = document.getElementById("product_name").innerHTML;
-        console.log(name)
-        price = document.getElementById("product_price").innerHTML;
-        console.log(price)
-
-
-        console.log('var_vendor')
-        var_vendor =document.getElementById("reg_vendor_product").value;
-
-        console.log(var_vendor)
-
-        var_campaign = 'Reguler Product'
-
-        varcam_free_delivery = "False"
-
-        product_cart[product_id_with_atrr] = [parseInt(qty), name, parseInt(price), picture_product, product_id, var_campaign, var_vendor, varcam_free_delivery, product_id_with_atrr, atrr2, atrr_full_text];
-        console.log(product_cart[product_id_with_atrr]);
-        console.log('new')
-
-        updateCart(product_cart,product_id);
-
-
-        document.getElementById("show_number").value = '1'
-
-    }
-
-    document.getElementById('view_cart_button_id').innerHTML=`<a class="btn btn-primary" href="/cart_page/" style="background-color:#0f3ba8; color:#fff;"><i class="fa fa-shopping-bag inner-right-vs"></i> View Cart</a>`;
-
-// 	$('#added_to_cart').modal('show');
 }
 
 //close_modal
@@ -1388,7 +1388,7 @@ function submit_customer_review(){
                 data : {qty_customer_ratings:qty_customer_ratings, varid_prod_review_hash_id:varid_prod_review_hash_id, varid_customer_review_text:varid_customer_review_text}
             })
             .done(function(response){
-                console.log(response);
+                //console.log(response);
 
                 if(response != "False"){
 
@@ -1463,7 +1463,6 @@ function submit_customer_review(){
                     document.getElementById('update_reviews').innerHTML = `${response}`;
                     document.getElementById('update_reviews2').innerHTML = `${response}`;
 
-                    console.log(varid_prod_review_hash_id)
                     funcupdate_avarage_rat(varid_prod_review_hash_id)
 
                     func_update_star_rat(varid_prod_review_hash_id)
@@ -1494,7 +1493,7 @@ function funcupdate_avarage_rat(varid_prod_review_hash_id){
         })
 
         .done(function(response){
-                console.log(response);
+                //console.log(response);
 
                 if(response != "False"){
 
@@ -1524,7 +1523,7 @@ function func_update_star_rat(varid_prod_review_hash_id){
         })
 
         .done(function(response){
-                console.log(response);
+                //console.log(response);
 
 
 

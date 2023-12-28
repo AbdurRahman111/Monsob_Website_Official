@@ -213,10 +213,7 @@
                     <sub style="margin-left:-5px; background-color:#0f3ba8; font-family:'Barlow'; font-weight:500;p" class="badge" id="product_cart">0</sub>
                 </i>
               </span>
-
-
                 <div class="fl-nav-links-cart" id="sideshow">
-
                     Your Cart Is Empty
                 </div>
               </div>
@@ -293,7 +290,7 @@
     </a>
     </div>
     <div class="col-mid">
-      <img src="" alt="">
+      <a href="/"><img src="{% static 'logo/Logo Icon Transparent PNG.png' %}" alt="MonSob"></a>
     </div>
     <div class="col-option">
     <a href="{% url 'customer-dashboard' %}">
@@ -869,7 +866,7 @@ function cart_without_loading(){
 
 
     var popStr = "";
-	popStr = popStr + "<div class='mx-2 my-2 divcartScroll'>";
+	popStr = popStr + "<div class='mx-2 my-2 '>";
 
 	var i =1;
 	var single_price_qty = 0;
@@ -881,7 +878,7 @@ function cart_without_loading(){
             popStr = popStr + `<div class="row"><div class="col-md-3 col-sm-3 col-xs-3 col-lg-3">
                               <div class="header-cart-item-img">
                                                   <img src="${product_cart[item][3]}" alt="IMG" width="80" height="70">
-                                              </div></div><div class="col-md-5  col-sm-5 col-xs-5 col-lg-5">`;
+                                              </div></div><div class="col-md-7  col-sm-7 col-xs-7 col-lg-7">`;
 
             single_price_qty = product_cart[item][0]*product_cart[item][2];
     		total_price = total_price + single_price_qty;
@@ -890,46 +887,33 @@ function cart_without_loading(){
     		    var attr_show=""
     		}
     		else{
-    		    var attr_show = "<br>" + product_cart[item][10];
+    		    var attr_show = product_cart[item][10];
     		}
-
-
-
-
-    		popStr = popStr + "<span class='text_max_1'>" + product_cart[item][1] + "</span>" + attr_show + "<br>" + product_cart[item][0] + " x ৳" + product_cart[item][2] + " = ৳" + single_price_qty  + "</br>";
-
-
-
+    		popStr = popStr + "<span class='text_max_1'>" + product_cart[item][1] + "</span>" + attr_show + "<br>" + product_cart[item][0] + " x ৳" + product_cart[item][2] + " = ৳" + single_price_qty;
     	    popStr = popStr +
     	    `</div>
-            <div class="col-md-4  col-sm-4 col-xs-4 col-lg-4">
-            <a style="padding:2px 8px;" class="btn btn-primary btn-sm btm-mob" onclick="increase_items('${product_cart[item][8]}')">+</a>
-                <a class="btn outline-btn-primary btn-sm" id="show_number_cart${product_cart[item][8]}">${product_cart[item][0]}</a>
-                <input type="hidden" value="${product_cart[item][8]}" id="get_product">
-            <a style="padding:2px 8px;" class="btn btn-primary btn-sm" onclick="decrease_items('${product_cart[item][8]}')">-</a>
+            <div class="col-md-2  col-sm-2 col-xs-2 col-lg-2">
 
+<!--            <a style="padding:2px 8px;" class="btn btn-primary btn-sm btm-mob" onclick="increase_items('${product_cart[item][8]}')">+</a>-->
+<!--                <a class="btn outline-btn-primary btn-sm" id="show_number_cart${product_cart[item][8]}">${product_cart[item][0]}</a>-->
+<!--                <input type="hidden" value="${product_cart[item][8]}" id="get_product">-->
+<!--            <a style="padding:2px 8px;" class="btn btn-primary btn-sm" onclick="decrease_items('${product_cart[item][8]}')">-</a>-->
 
             <a style="vertical-align:bottom; margin-left:3px;" onclick="remove_cart_item('${product_cart[item][8]}')">
             <i class="fa fa-trash-o" style="font-size:20px;color:red"></i>
             </a>
             </div>
-        	</div>
-        	<br><br>`
-
+        	</div>`
         		i = i+1;
         	}
-
-
         }
 
-        if(popStr=="<div class='mx-2 my-2 divcartScroll'>"){
+        if(popStr=="<div class='mx-2 my-2 '>"){
             popStr = popStr + "Your Cart Is Empty</div>"
         }
         else{
-            popStr = popStr + "</div><hr><b>Sub Total: ৳"+ total_price +"</b><br><br><div class='row'><div class='col-md-12'><a href='{% url 'cart_page' %}'><button class='btn btn-upper btn-primary btn-block m-t-20' id='checkout'>View Cart</button></a></div><div class='col-md-12'><a href={% url 'home' %}><button class='btn btn-upper btn-primary btn-block m-t-20' id='clearCart' onclick='clearCart()'>Clear Cart</button></a></div></div>"
+            popStr = popStr + "</div><hr><h4><b>Sub Total: ৳"+ total_price +"</b><h4><div class='row'><div class='col-md-6 col-sm-6 col-lg-6'><a href='{% url 'cart_page' %}'><button class='btn btn-upper btn-primary btn-block m-t-20' id='checkout'>View Cart</button></a></div><div class='col-md-6 col-sm-6 col-lg-6'><a href={% url 'home' %}><button class='btn btn-upper btn-primary btn-block m-t-20' id='clearCart' onclick='clearCart()'>Clear Cart</button></a></div></div>"
         }
-
-
         document.getElementById('sideshow').innerHTML = popStr;
 
 
@@ -949,7 +933,7 @@ updatesideshow(product_cart);
 function updatesideshow(product_cart){
 
 	var popStr = "";
-	popStr = popStr + "<div class='mx-2 my-2 divcartScroll'>";
+	popStr = popStr + "<div class='mx-2 my-2 '>";
 
 	var i =1;
 	var single_price_qty = 0;
@@ -997,7 +981,7 @@ function updatesideshow(product_cart){
         	}
         }
 
-        if(popStr=="<div class='mx-2 my-2 divcartScroll'>"){
+        if(popStr=="<div class='mx-2 my-2 '>"){
             popStr = popStr + "Your Cart Is Empty</div>"
         }
         else{
@@ -1017,14 +1001,10 @@ function clearCart(product_cart){
 
 // increse item
 function increase_items(get_product){
-
     var now_number = document.getElementById("show_number_cart"+get_product).innerHTML;
-
     var b = parseInt(now_number);
     now_number=b+1;
-
     document.getElementById("show_number_cart"+get_product).innerHTML = now_number;
-
     product_cart[get_product][0] = now_number;
     updateCart(product_cart);
 }
@@ -1035,18 +1015,13 @@ function increase_items(get_product){
 // decrese item
 function decrease_items(get_product){
     var now_number = document.getElementById("show_number_cart"+get_product).innerHTML;
-
     var b = parseInt(now_number);
-
     if(b==1 || b<1){
-
     }
     else{
     now_number=b-1;
-
     product_cart[get_product][0] = now_number;
     document.getElementById("show_number_cart"+get_product).innerHTML = now_number;
-
     updateCart(product_cart);
     }
 
@@ -1054,23 +1029,9 @@ function decrease_items(get_product){
 
 
 function remove_cart_item(get_product){
-    console.log(get_product)
-    var now_number = document.getElementById("show_number_cart"+get_product).innerHTML;
-
-    console.log(get_product)
-    console.log('id')
-
-    console.log(now_number)
-
-    var b = parseInt(now_number);
-    now_number=b+1;
-    console.log(now_number);
-
-    product_cart[get_product][0] = 0;
-
+    delete product_cart[get_product];
+    //product_cart[get_product][0] = 0;
     updateCart(product_cart);
-
-    get_cart_item();
 }
 
 

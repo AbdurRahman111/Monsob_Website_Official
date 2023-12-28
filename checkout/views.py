@@ -36,25 +36,15 @@ def save_customer_delivery_info(request):
 
     try:
         var_customer_info = Customer_delivery_information(Customer=request.user, First_Name=customer_first_name, Last_Name=customer_last_name, Street_Address=customer_Street_Address, Town_City=customer_Town_City, District=customer_District, Post_Code=customer_Post_Code, Phone_Number=customer_Phone_Number, Email_Address=customer_Email_Address)
-
         var_customer_info.save()
-
-        print(var_customer_info.id)
         customer_info_id = var_customer_info.id
-
         return HttpResponse(customer_info_id)
     except Exception as e:
-
-        # print('hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh')
-
         myuser = User.objects.create_user(customer_Phone_Number, customer_Email_Address, customer_Phone_Number)
         myuser.first_name = customer_first_name
         myuser.last_name = customer_last_name
         myuser.is_active = True
         myuser.save()
-
-
-
         var_customer_info = Customer_delivery_information(Customer=myuser,
                                                           First_Name=customer_first_name,
                                                           Last_Name=customer_last_name,
@@ -65,17 +55,11 @@ def save_customer_delivery_info(request):
                                                           Email_Address=customer_Email_Address)
 
         var_customer_info.save()
-
         # logged in
         user = authenticate(request, username=customer_Phone_Number, password=customer_Phone_Number)
         if user is not None:
             login(request, user)
-
-
-
-        print(var_customer_info.id)
         customer_info_id = var_customer_info.id
-
         return HttpResponse(customer_info_id)
 
 
