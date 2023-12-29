@@ -2,6 +2,20 @@
 {% load static %}
 {% block content %}
 
+    <style>
+        /* Define styles for desktop */
+        .hide-mobile {
+          display: block; /* Display for desktop */
+        }
+
+        /* Media query for mobile */
+        @media (max-width: 768px) {
+          .hide-mobile {
+            display: none; /* Hide for mobile screens with a maximum width of 768px */
+          }
+        }
+    </style>
+
     <!-- Facebook Pixel Code -->
     <script>
         !function(f,b,e,v,n,t,s){
@@ -46,92 +60,82 @@
                 <div class="row  wow fadeInUp">
 
                          <div class="col-xs-12 col-sm-4 col-md-4 gallery-holder">
-    <div class="product-item-holder size-big single-product-gallery small-gallery">
+                            <div class="product-item-holder size-big single-product-gallery small-gallery">
 
-        <div id="owl-single-product">
-            <div id="show_attr_img">
+                                <div id="owl-single-product">
+                                    <div id="show_attr_img"></div>
+                                    <div class="single-product-gallery-item" id="slide1">
+                                        <a data-lightbox="image-1" data-title="Gallery" href="{{get_product.Product_Image}}">
+                                            <img loading="lazy" class="img-responsive" alt="{{get_product.Product_Name}}" src="{% static 'details_page/images/blank.gif' %}" data-echo="{{get_product.Product_Image}}" />
+                                        </a>
+                                    </div><!-- /.single-product-gallery-item -->
 
-            </div>
+                                    {% if get_product.Product_Image2 %}
+                                    <div class="single-product-gallery-item" id="slide2">
+                                        <a data-lightbox="image-1" data-title="Gallery" href="{{get_product.Product_Image2}}">
+                                            <img loading="lazy" class="img-responsive" alt="{{get_product.Product_Name}}" src="{% static 'details_page/' %}images/blank.gif" data-echo="{{get_product.Product_Image2}}" />
+                                        </a>
+                                    </div><!-- /.single-product-gallery-item -->
+                                    {% endif %}
 
-            <div class="single-product-gallery-item" id="slide1">
-                <a data-lightbox="image-1" data-title="Gallery" href="{{get_product.Product_Image}}">
-                    <img loading="lazy" class="img-responsive" alt="{{get_product.Product_Name}}" src="{% static 'details_page/images/blank.gif' %}" data-echo="{{get_product.Product_Image}}" />
-                </a>
-            </div><!-- /.single-product-gallery-item -->
+                                    {% if get_product.Product_Image3 %}
+                                    <div class="single-product-gallery-item" id="slide3">
+                                        <a data-lightbox="image-1" data-title="Gallery" href="{{get_product.Product_Image3}}">
+                                            <img loading="lazy" class="img-responsive" alt="{{get_product.Product_Name}}" src="{% static 'details_page/' %}images/blank.gif" data-echo="{{get_product.Product_Image3}}" />
+                                        </a>
+                                    </div><!-- /.single-product-gallery-item -->
+                                    {% endif %}
 
-            {% if get_product.Product_Image2 %}
-            <div class="single-product-gallery-item" id="slide2">
-                <a data-lightbox="image-1" data-title="Gallery" href="{{get_product.Product_Image2}}">
-                    <img loading="lazy" class="img-responsive" alt="{{get_product.Product_Name}}" src="{% static 'details_page/' %}images/blank.gif" data-echo="{{get_product.Product_Image2}}" />
-                </a>
-            </div><!-- /.single-product-gallery-item -->
-            {% endif %}
+                                    {% if get_product.Product_Image4 %}
+                                    <div class="single-product-gallery-item" id="slide4">
+                                        <a data-lightbox="image-1" data-title="Gallery" href="{{get_product.Product_Image4}}">
+                                            <img loading="lazy" class="img-responsive" alt="{{get_product.Product_Name}}" src="{% static 'details_page/' %}images/blank.gif" data-echo="{{get_product.Product_Image4}}" />
+                                        </a>
+                                    </div><!-- /.single-product-gallery-item -->
+                                    {% endif %}
+                                </div><!-- /.single-product-slider -->
 
-            {% if get_product.Product_Image3 %}
-            <div class="single-product-gallery-item" id="slide3">
-                <a data-lightbox="image-1" data-title="Gallery" href="{{get_product.Product_Image3}}">
-                    <img loading="lazy" class="img-responsive" alt="{{get_product.Product_Name}}" src="{% static 'details_page/' %}images/blank.gif" data-echo="{{get_product.Product_Image3}}" />
-                </a>
-            </div><!-- /.single-product-gallery-item -->
-            {% endif %}
+                                <div class="single-product-gallery-thumbs gallery-thumbs hide-mobile">
+                                    <div id="owl-single-product-thumbnails">
+                                        <div class="item">
+                                            <a class="horizontal-thumb active" data-target="#owl-single-product" data-slide="1" href="#slide1">
+                                                <img loading="lazy" class="img-responsive" alt="{{get_product.Product_Name}}" src="{% static 'details_page/' %}images/blank.gif" data-echo="{{get_product.Product_Image}}" />
+                                            </a>
+                                        </div>
+                                        {% if get_product.Product_Image2 %}
+                                        <div class="item">
+                                            <a class="horizontal-thumb" data-target="#owl-single-product" data-slide="2" href="#slide2">
+                                                <img loading="lazy" class="img-responsive" alt="{{get_product.Product_Name}}" src="{% static 'details_page/' %}images/blank.gif" data-echo="{{get_product.Product_Image2}}"/>
+                                            </a>
+                                        </div>
+                                        {% endif %}
 
+                                        {% if get_product.Product_Image3 %}
+                                        <div class="item">
 
-            {% if get_product.Product_Image4 %}
-            <div class="single-product-gallery-item" id="slide4">
-                <a data-lightbox="image-1" data-title="Gallery" href="{{get_product.Product_Image4}}">
-                    <img loading="lazy" class="img-responsive" alt="{{get_product.Product_Name}}" src="{% static 'details_page/' %}images/blank.gif" data-echo="{{get_product.Product_Image4}}" />
-                </a>
-            </div><!-- /.single-product-gallery-item -->
-            {% endif %}
+                                            <a class="horizontal-thumb" data-target="#owl-single-product" data-slide="3" href="#slide3">
+                                                <img loading="lazy" class="img-responsive" alt="{{get_product.Product_Name}}" src="{% static 'details_page/' %}images/blank.gif" data-echo="{{get_product.Product_Image3}}" />
+                                            </a>
+                                        </div>
+                                        {% endif %}
 
+                                        {% if get_product.Product_Image4 %}
+                                        <div class="item">
 
+                                            <a class="horizontal-thumb" data-target="#owl-single-product" data-slide="4" href="#slide4">
+                                                <img loading="lazy" class="img-responsive" alt="{{get_product.Product_Name}}" src="{% static 'details_page/' %}images/blank.gif" data-echo="{{get_product.Product_Image4}}" />
+                                            </a>
+                                        </div>
+                                        {% endif %}
 
-        </div><!-- /.single-product-slider -->
-
-
-        <div class="single-product-gallery-thumbs gallery-thumbs">
-
-            <div id="owl-single-product-thumbnails">
-                <div class="item">
-                    <a class="horizontal-thumb active" data-target="#owl-single-product" data-slide="1" href="#slide1">
-                        <img loading="lazy" class="img-responsive" alt="{{get_product.Product_Name}}" src="{% static 'details_page/' %}images/blank.gif" data-echo="{{get_product.Product_Image}}" />
-                    </a>
-                </div>
-
-                {% if get_product.Product_Image2 %}
-                <div class="item">
-                    <a class="horizontal-thumb" data-target="#owl-single-product" data-slide="2" href="#slide2">
-                        <img loading="lazy" class="img-responsive" alt="{{get_product.Product_Name}}" src="{% static 'details_page/' %}images/blank.gif" data-echo="{{get_product.Product_Image2}}"/>
-                    </a>
-                </div>
-                {% endif %}
-
-                {% if get_product.Product_Image3 %}
-                <div class="item">
-
-                    <a class="horizontal-thumb" data-target="#owl-single-product" data-slide="3" href="#slide3">
-                        <img loading="lazy" class="img-responsive" alt="{{get_product.Product_Name}}" src="{% static 'details_page/' %}images/blank.gif" data-echo="{{get_product.Product_Image3}}" />
-                    </a>
-                </div>
-                {% endif %}
-
-                {% if get_product.Product_Image4 %}
-                <div class="item">
-
-                    <a class="horizontal-thumb" data-target="#owl-single-product" data-slide="4" href="#slide4">
-                        <img loading="lazy" class="img-responsive" alt="{{get_product.Product_Name}}" src="{% static 'details_page/' %}images/blank.gif" data-echo="{{get_product.Product_Image4}}" />
-                    </a>
-                </div>
-                {% endif %}
-
-            </div><!-- /#owl-single-product-thumbnails -->
+                                    </div><!-- /#owl-single-product-thumbnails -->
 
 
 
-        </div><!-- /.gallery-thumbs -->
+                                </div><!-- /.gallery-thumbs -->
 
-    </div><!-- /.single-product-gallery -->
-</div><!-- /.gallery-holder -->
+                            </div><!-- /.single-product-gallery -->
+                        </div><!-- /.gallery-holder -->
                     <div class='col-sm-8 col-md-8 product-info-block'>
                         <div class="product-info">
                             <h1 class="name" id="product_name">{{get_product.Product_Name}}</h1>
@@ -295,7 +299,6 @@
                             <div class="price-container info-container m-t-30">
                                 <div class="row">
 
-
                                     <div class="col-sm-12 col-xs-12 col-md-10 col-lg-10">
                                         <div class="price-box">
                                             {% if get_product.TYPE_OF_PRODUCTS == 'Simple Product' %}
@@ -304,13 +307,10 @@
                                             <span class="price-strike">{% if get_product.Discount_Price %}&#2547;{{get_product.MRP_Price}}{% endif %}</span>
                                             {% endif %}
 
-
                                         </div>
 
 
-
                                         {% if get_product.TYPE_OF_PRODUCTS != 'Simple Product' %}
-
                                             <div class="price-box">
                                                 &#2547;<span class="price" id="product_price"></span>
                                                 <span class="price-strike"><span id="price_mrp_attr"></span></span>
